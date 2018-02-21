@@ -1,0 +1,11 @@
+.form {
+  
+    display : flex;
+    flex-direction: column;
+    margin: 1% 25%;
+  
+}
+
+.full-width {
+  width: 100%;
+}

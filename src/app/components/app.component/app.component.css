@@ -1,0 +1,18 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+a {
+  margin-left: 10px;
+  transition: 0.3s ease-out;
+  text-decoration: none;
+  color: #ffffff;
+
+}
+
+a:hover,
+a:active {
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    padding: 2px 0; 
+}

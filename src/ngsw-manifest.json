@@ -1,0 +1,19 @@
+{
+  "dynamic": {
+    "group": [
+      {
+        "name": "shieldit",
+        "urls": {},
+        "cache": {
+          "optimizeFor": "performance",
+          "maxAgeMs": 3600000,
+          "maxEntries": 20,
+          "strategy": "lru"
+        }
+      }
+    ]
+  },
+  "external": {
+    "urls": [{}]
+  }
+}
