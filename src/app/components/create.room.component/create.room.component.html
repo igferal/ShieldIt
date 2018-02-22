@@ -1,11 +1,13 @@
-<form class="form" (ngSubmit)="newGame()" #createGame="ngForm">
-  <mat-form-field class="full-width">
-    <input [(ngModel)]="name" name="name" matInput placeholder="Nombre" value="">
-  </mat-form-field>
+<main class="main">
+  <form class="form" (ngSubmit)="newGame()" #createGame="ngForm">
+    <mat-form-field class="full-width">
+      <input [(ngModel)]="name" name="name" matInput placeholder="Nombre" value="">
+    </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <textarea [(ngModel)]="games" name="games" matInput placeholder="Genera los elementos para el juego, separandolos por comas ej: Mario,Metal Gear"
-      matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
-  </mat-form-field>
-  <button mat-raised-button color="primary">Crear</button>
-</form>
+    <mat-form-field class="full-width">
+      <textarea [(ngModel)]="games" name="games" matInput placeholder="Genera los elementos para el juego, separandolos por comas ej: Mario,Metal Gear"
+        matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary">Crear</button>
+  </form>
+</main>

@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { Game } from "./../../model/game";
 import { Room } from "./../../model/room";
 import { DatabaseService } from "./../../services/database.service";
@@ -21,7 +22,8 @@ export class CreateRoomComponent implements OnInit {
   constructor(
     public databaseService: DatabaseService,
     public dialog: MatDialog,
-    public notifierService: NotifierService
+    public notifierService: NotifierService,
+    public router: Router
   ) {}
 
   public newGame() {
@@ -45,15 +47,13 @@ export class CreateRoomComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
+      if (result != undefined) {
+        this.router.navigate(["findRoom", result]);
+      }
     });
   }
 
-  ngOnInit() {
-    this.databaseService.getRoom("rooms").subscribe(res => {
-      console.log(res);
-    });
-  }
+  ngOnInit() {}
 }
 
 @Component({

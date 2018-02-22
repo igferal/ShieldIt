@@ -14,4 +14,8 @@ export class DatabaseService {
   public getRoom(id: string) {
     return this.db.collection("rooms").valueChanges();
   }
+
+  public findRoom(id: string) {
+    return this.db.doc<Room>(`rooms/${id}`);
+  }
 }
