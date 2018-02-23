@@ -13,11 +13,11 @@
         {{game.name.substring(0,1)}}
       </div>
       <div *ngIf="game.killed" class="circle killed">
-          {{game.name.substring(0,1)}}
-        </div>
-        <div *ngIf="game.shielded" class="circle shielded">
-            {{game.name.substring(0,1)}}
-          </div>
+        {{game.name.substring(0,1)}}
+      </div>
+      <div *ngIf="game.shielded" class="circle shielded">
+        {{game.name.substring(0,1)}}
+      </div>
       <footer class="cardfooter">
         <button (click)="killGame(game,room)" class="game btn-kill">Kill</button>
         <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
@@ -27,8 +27,12 @@
   <footer>
     <ul>
       <li *ngFor="let player of room?.players">
-        {{player}}
+        <p>
+          {{player}}
+        </p>
       </li>
     </ul>
   </footer>
 </main>
+<button (click)="cleanRoom()">clean room</button>
+<notifier-container></notifier-container>

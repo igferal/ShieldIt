@@ -1,3 +1,4 @@
+import { NotifierService } from "angular-notifier";
 import { Game } from "./../../model/game";
 import { ActivatedRoute } from "@angular/router";
 import { DatabaseService } from "./../../services/database.service";
@@ -19,15 +20,36 @@ export class GameComponent implements OnInit {
 
   public roomId: string;
 
+  public hasShielded: boolean = false;
+
   constructor(
     public dataBaseService: DatabaseService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public notifierService: NotifierService
   ) {}
 
   public shieldGame(game: Game) {
-    game.shielded = true;
-    game.killed = false;
-    this.roomDoc.update(this.room);
+    if (game.shielded) {
+      this.notifierService.notify("error", "Ese juego ya tiene un escudo");
+      return;
+    }
+
+    if (!game.killed) {
+      this.notifierService.notify(
+        "error",
+        "No puedes poner un escudo a un juego vivo"
+      );
+      return;
+    }
+
+    if (!this.hasShielded) {
+      game.shielded = true;
+      game.killed = false;
+      this.roomDoc.update(this.room);
+      this.hasShielded = true;
+    } else {
+      this.notifierService.notify("error", "Ya has gastado tu escudo");
+    }
   }
 
   public killGame(game: Game) {
@@ -36,13 +58,24 @@ export class GameComponent implements OnInit {
     this.roomDoc.update(this.room);
   }
 
+  public cleanRoom() {
+    this.room.game.forEach(game => {
+      game.killed = false;
+      game.shielded = false;
+    });
+    this.roomDoc.update(this.room);
+  }
+
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get("id");
     if (this.roomId) {
       this.roomDoc = this.dataBaseService.findRoom(this.roomId);
-      this.roomDoc.valueChanges().subscribe(room => (this.room = room),
-    err => console.log("There was an error");
-    );
+      this.roomDoc
+        .valueChanges()
+        .subscribe(
+          room => (this.room = room),
+          err => console.log("There was an error")
+        );
     }
   }
 }
