@@ -11,7 +11,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: "findRoom",
   templateUrl: "./find.room.component.html",
-  styleUrls: ["./find.room.component.css"]
+  styleUrls: ["./find.room.component.css"],
+  providers : [DatabaseService]
 })
 export class FindRoomComponent implements OnInit {
   public name: string;
@@ -21,11 +22,18 @@ export class FindRoomComponent implements OnInit {
   constructor(
     public notifierService: NotifierService,
     public activeRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public databaseService: DatabaseService
   ) {}
 
   public findRoom() {
-    this.router.navigate(["game", this.roomId]);
+    if (this.name === null || this.roomId === null) {
+      this.notifierService.notify("error", "Introduce los datos necesarios");
+    }else{
+         this.databaseService.addPlayerToRoom(this.roomId, this.name);
+         this.router.navigate(["game", this.roomId]);
+    }
+ 
   }
 
   public ngOnInit() {

@@ -9,7 +9,7 @@ import { Observable } from "rxjs/Observable";
   selector: "app-game",
   templateUrl: "./game.component.html",
   styleUrls: ["./game.component.css"],
-  providers : [DatabaseService]
+  providers: [DatabaseService]
 })
 export class GameComponent implements OnInit {
   public room: Observable<Room>;
@@ -25,7 +25,6 @@ export class GameComponent implements OnInit {
     this.roomId = this.route.snapshot.paramMap.get("id");
     if (this.roomId) {
       this.room = this.dataBaseService.findRoom(this.roomId).valueChanges();
-      console.log(this.room);
     }
   }
 }

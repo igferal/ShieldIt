@@ -20,6 +20,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ClipboardModule } from "ngx-clipboard";
 import { NotifierModule } from "angular-notifier";
 import { GameComponent } from "./components/game.component/game.component";
+import { MatChipsModule } from "@angular/material/chips";
+import { HttpModule } from "@angular/http";
+
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { GameComponent } from "./components/game.component/game.component";
     MatButtonModule,
     MatDialogModule,
     ClipboardModule,
-    NotifierModule
+    NotifierModule,
+    MatChipsModule,
+    HttpModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

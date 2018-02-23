@@ -1,7 +1,28 @@
-<ul>
-
-  <div>
-    {{ (room | async)?.name }}
+<main>
+  <header>
+    <p>
+      {{(room | async)?.name}} {{roomId}}
+    </p>
+  </header>
+  <div class="gameDiv">
+    <div class="card" *ngFor="let game of (room | async)?.game">
+      <header>
+        {{game.name}}
+      </header>
+      <div class="circle">
+        {{game.name.substring(0,1)}}
+      </div>
+      <footer class="cardfooter">
+        <button class="game btn-kill">Kill</button>
+        <button class="game btn-shield">Shield</button>
+      </footer>
+    </div>
   </div>
-
-</ul>
+  <footer>
+    <ul>
+      <li *ngFor="let player of (room | async)?.players">
+        {{player}}
+      </li>
+    </ul>
+  </footer>
+</main>

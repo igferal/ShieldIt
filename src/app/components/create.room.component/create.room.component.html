@@ -5,8 +5,16 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <textarea [(ngModel)]="games" name="games" matInput placeholder="Genera los elementos para el juego, separandolos por comas ej: Mario,Metal Gear"
-        matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let game of games" [selectable]="selectable" [removable]="removable" (remove)="remove(game)">
+          {{game.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <br>
+        <input placeholder="Añadir obra" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)" />
+      </mat-chip-list>
+
     </mat-form-field>
     <button mat-raised-button color="primary">Crear</button>
   </form>

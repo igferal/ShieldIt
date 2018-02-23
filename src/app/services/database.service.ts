@@ -18,4 +18,15 @@ export class DatabaseService {
   public findRoom(id: string) {
     return this.db.doc<Room>(`rooms/${id}`);
   }
+
+  public addPlayerToRoom(idRoom: string, playerName: string) {
+    let room = this.db.doc<Room>(`rooms/${idRoom}`).valueChanges();
+    let suscription = room.subscribe(room => {
+      room.players.push(playerName);
+      console.log(room);
+      this.db.doc<Room>(`rooms/${idRoom}`).update(room);
+      suscription.unsubscribe();
+    });
+    
+  }
 }

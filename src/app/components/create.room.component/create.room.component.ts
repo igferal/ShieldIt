@@ -7,6 +7,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatDialogRef } from "@angular/material/dialog";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { NotifierService } from "angular-notifier";
+import { ENTER, COMMA } from "@angular/cdk/keycodes";
+import { MatChipInputEvent } from "@angular/material/chips";
 
 @Component({
   selector: "createGame",
@@ -16,8 +18,12 @@ import { NotifierService } from "angular-notifier";
 })
 export class CreateRoomComponent implements OnInit {
   public name: string;
-
-  public games: string;
+  public games: Game[] = [];
+  public separatorKeysCodes = [ENTER, COMMA];
+  public visible: boolean = true;
+  public selectable: boolean = true;
+  public removable: boolean = true;
+  public addOnBlur: boolean = true;
 
   constructor(
     public databaseService: DatabaseService,
@@ -32,11 +38,7 @@ export class CreateRoomComponent implements OnInit {
   }
 
   private createRoom(): Room {
-    let gamesArray = [];
-    this.games.split(",").forEach(game => {
-      gamesArray.push(Object.assign({}, new Game(game, false, false)));
-    });
-    return new Room(this.name, [], gamesArray);
+    return new Room(this.name, [], this.games);
   }
 
   openDialog(id: string): void {
@@ -51,6 +53,27 @@ export class CreateRoomComponent implements OnInit {
         this.router.navigate(["findRoom", result]);
       }
     });
+  }
+
+  add(event: MatChipInputEvent): void {
+    let input = event.input;
+    let value = event.value;
+
+    if ((value || "").trim()) {
+      this.games.push(Object.assign({}, new Game(value.trim(), false, false)));
+    }
+
+    if (input) {
+      input.value = "";
+    }
+  }
+
+  remove(game: any): void {
+    let index = this.games.indexOf(game);
+
+    if (index >= 0) {
+      this.games.splice(index, 1);
+    }
   }
 
   ngOnInit() {}
