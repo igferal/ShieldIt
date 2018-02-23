@@ -1,26 +1,32 @@
 <main>
   <header>
     <p>
-      {{(room | async)?.name}} {{roomId}}
+      {{room?.name}} {{roomId}}
     </p>
   </header>
   <div class="gameDiv">
-    <div class="card" *ngFor="let game of (room | async)?.game">
+    <div class="card" *ngFor="let game of room?.game">
       <header>
         {{game.name}}
       </header>
-      <div class="circle">
+      <div *ngIf="!game.killed && !game.shielded" class="circle">
         {{game.name.substring(0,1)}}
       </div>
+      <div *ngIf="game.killed" class="circle killed">
+          {{game.name.substring(0,1)}}
+        </div>
+        <div *ngIf="game.shielded" class="circle shielded">
+            {{game.name.substring(0,1)}}
+          </div>
       <footer class="cardfooter">
-        <button class="game btn-kill">Kill</button>
-        <button class="game btn-shield">Shield</button>
+        <button (click)="killGame(game,room)" class="game btn-kill">Kill</button>
+        <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
       </footer>
     </div>
   </div>
   <footer>
     <ul>
-      <li *ngFor="let player of (room | async)?.players">
+      <li *ngFor="let player of room?.players">
         {{player}}
       </li>
     </ul>

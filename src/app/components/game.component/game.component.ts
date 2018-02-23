@@ -1,3 +1,4 @@
+import { Game } from "./../../model/game";
 import { ActivatedRoute } from "@angular/router";
 import { DatabaseService } from "./../../services/database.service";
 import { Component, OnInit } from "@angular/core";
@@ -12,7 +13,9 @@ import { Observable } from "rxjs/Observable";
   providers: [DatabaseService]
 })
 export class GameComponent implements OnInit {
-  public room: Observable<Room>;
+  public room: Room;
+
+  private roomDoc: AngularFirestoreDocument<Room>;
 
   public roomId: string;
 
@@ -21,10 +24,25 @@ export class GameComponent implements OnInit {
     public route: ActivatedRoute
   ) {}
 
+  public shieldGame(game: Game) {
+    game.shielded = true;
+    game.killed = false;
+    this.roomDoc.update(this.room);
+  }
+
+  public killGame(game: Game) {
+    game.killed = true;
+    game.shielded = false;
+    this.roomDoc.update(this.room);
+  }
+
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get("id");
     if (this.roomId) {
-      this.room = this.dataBaseService.findRoom(this.roomId).valueChanges();
+      this.roomDoc = this.dataBaseService.findRoom(this.roomId);
+      this.roomDoc.valueChanges().subscribe(room => (this.room = room),
+    err => console.log("There was an error");
+    );
     }
   }
 }

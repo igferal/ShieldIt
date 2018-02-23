@@ -28,7 +28,7 @@ header legend {
   width: 100%;
   height: 72vh;
   overflow: scroll;
-  align-items: center;
+  justify-content: center;
 }
 
 footer {
@@ -131,4 +131,12 @@ li {
   display: inline-block;
   vertical-align: middle;
   padding-top: 100%;
+}
+
+.killed{
+  background: #c8102e;
+}
+
+.shielded{
+  background: #004687;
 }
