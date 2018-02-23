@@ -31,15 +31,6 @@ header legend {
   justify-content: center;
 }
 
-footer {
-  height: 10vh;
-  display: inline-flex;
-}
-
-footer ul {
-  display: inline-flex;
-}
-
 ul,
 li {
   list-style: none;
@@ -133,10 +124,40 @@ li {
   padding-top: 100%;
 }
 
-.killed{
+.killed {
   background: #c8102e;
 }
 
-.shielded{
+.shielded {
   background: #004687;
+}
+
+.players {
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 10vh;
+  display: inline-flex;
+  align-items: center;
+}
+
+.player {
+  color: white;
+  background: teal;
+  padding: 6px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  max-height: 2vh;
+}
+
+.clean {
+  color: white;
+  background: red;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  max-height: 4vh;
+}
+
+.players .player:first-child {
+  background: peru;
 }

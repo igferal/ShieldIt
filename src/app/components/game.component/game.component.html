@@ -24,15 +24,12 @@
       </footer>
     </div>
   </div>
-  <footer>
-    <ul>
-      <li *ngFor="let player of room?.players">
-        <p>
-          {{player}}
-        </p>
-      </li>
-    </ul>
+  <footer class="players">
+    <span class="player" *ngFor="let player of room?.players">
+      {{player}}
+    </span>
+    <button class="clean" (click)="cleanRoom()">clean room</button>
+
   </footer>
 </main>
-<button (click)="cleanRoom()">clean room</button>
 <notifier-container></notifier-container>

@@ -53,9 +53,15 @@ export class GameComponent implements OnInit {
   }
 
   public killGame(game: Game) {
-    game.killed = true;
-    game.shielded = false;
-    this.roomDoc.update(this.room);
+    if (game.killed) {
+      this.notifierService.notify("error", "Ya esta muerto");
+      return;
+    } else {
+      game.killed = true;
+      game.shielded = false;
+      this.changePlayer();
+      this.roomDoc.update(this.room);
+    }
   }
 
   public cleanRoom() {
@@ -64,6 +70,11 @@ export class GameComponent implements OnInit {
       game.shielded = false;
     });
     this.roomDoc.update(this.room);
+  }
+
+  private changePlayer() {
+    let player = this.room.players.shift();
+    this.room.players.push(player);
   }
 
   ngOnInit() {
