@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: "findRoom", component: FindRoomComponent },
   { path: "app", component: AppComponent },
   { path: "createRoom", component: CreateRoomComponent },
-  { path: "game/:id", component: GameComponent},
+  { path: "game/:id/:user", component: GameComponent},
 
 ];
 

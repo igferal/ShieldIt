@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from "@angular/router";
   selector: "findRoom",
   templateUrl: "./find.room.component.html",
   styleUrls: ["./find.room.component.css"],
-  providers : [DatabaseService]
+  providers: [DatabaseService]
 })
 export class FindRoomComponent implements OnInit {
   public name: string;
@@ -29,11 +29,10 @@ export class FindRoomComponent implements OnInit {
   public findRoom() {
     if (this.name === null || this.roomId === null) {
       this.notifierService.notify("error", "Introduce los datos necesarios");
-    }else{
-         this.databaseService.addPlayerToRoom(this.roomId, this.name);
-         this.router.navigate(["game", this.roomId]);
+    } else {
+      this.databaseService.addPlayerToRoom(this.roomId, this.name);
+      this.router.navigate(["game", this.roomId, this.name]);
     }
- 
   }
 
   public ngOnInit() {
