@@ -1,3 +1,4 @@
+import { Prefab } from "./../../model/prefab";
 import { Router } from "@angular/router";
 import { Game } from "./../../model/game";
 import { Room } from "./../../model/room";
@@ -17,13 +18,15 @@ import { MatChipInputEvent } from "@angular/material/chips";
   providers: [DatabaseService]
 })
 export class CreateRoomComponent implements OnInit {
-  public name: string;
+  public name: string = "Mi sala";
   public games: Game[] = [];
+  public prefabs: Prefab[];
   public separatorKeysCodes = [ENTER, COMMA];
   public visible: boolean = true;
   public selectable: boolean = true;
   public removable: boolean = true;
   public addOnBlur: boolean = true;
+  public currentPrefab: string = "Ninguno";
 
   constructor(
     public databaseService: DatabaseService,
@@ -41,7 +44,7 @@ export class CreateRoomComponent implements OnInit {
     return new Room(this.name, [], this.games);
   }
 
-  openDialog(id: string): void {
+  public openDialog(id: string): void {
     let dialogRef = this.dialog.open(Dialog, {
       autoFocus: true,
       data: { id: id },
@@ -55,7 +58,7 @@ export class CreateRoomComponent implements OnInit {
     });
   }
 
-  add(event: MatChipInputEvent): void {
+  public add(event: MatChipInputEvent): void {
     let input = event.input;
     let value = event.value;
 
@@ -68,7 +71,21 @@ export class CreateRoomComponent implements OnInit {
     }
   }
 
-  remove(game: any): void {
+  public loadPrefab(prefab: Prefab) {
+    if (this.name === "Mi sala") {
+      this.name = prefab.name;
+    }
+
+    this.games = [];
+    prefab.names.forEach(name => {
+      this.games.push(Object.assign({}, new Game(name, false, false)));
+    });
+  }
+
+  public clearGames() {
+    this.games = [];
+  }
+  public remove(game: any): void {
     let index = this.games.indexOf(game);
 
     if (index >= 0) {
@@ -76,7 +93,11 @@ export class CreateRoomComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.databaseService
+      .getPrefabs()
+      .subscribe(prefabs => (this.prefabs = prefabs));
+  }
 }
 
 @Component({

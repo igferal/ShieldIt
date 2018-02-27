@@ -22,7 +22,7 @@ import { NotifierModule } from "angular-notifier";
 import { GameComponent } from "./components/game.component/game.component";
 import { MatChipsModule } from "@angular/material/chips";
 import { HttpModule } from "@angular/http";
-
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { HttpModule } from "@angular/http";
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     AngularFireModule.initializeApp(environment.firebase, "shieldit"),
     AngularFirestoreModule,
     BrowserAnimationsModule,
@@ -48,8 +49,8 @@ import { HttpModule } from "@angular/http";
     ClipboardModule,
     NotifierModule,
     MatChipsModule,
-    HttpModule
-  
+    MatSelectModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

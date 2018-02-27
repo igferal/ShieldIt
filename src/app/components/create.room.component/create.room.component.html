@@ -1,21 +1,29 @@
 <main class="main">
   <form class="form" (ngSubmit)="newGame()" #createGame="ngForm">
+    <h1>Crear sala</h1>
     <mat-form-field class="full-width">
       <input [(ngModel)]="name" name="name" matInput placeholder="Nombre" value="">
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let game of games" [selectable]="selectable" [removable]="removable" (remove)="remove(game)">
-          {{game.name}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <br>
-        <input placeholder="Añadir obra" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)" />
-      </mat-chip-list>
-
+      <div class="overflow-scroll-gradient__scroller full-width">
+        <mat-chip-list class="mat-chip-list-stacked full-width" #chipList>
+          <mat-chip *ngFor="let game of games" [selectable]="selectable" [removable]="removable" (remove)="remove(game)">
+            {{game.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <input placeholder="Añadir obra" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-select [(value)]="currentPrefab" placeholder="Escoger un prefab">
+        <mat-option (click)="clearGames()">Ninguno</mat-option>
+        <mat-option (click)="loadPrefab(prefab)" *ngFor="let prefab of prefabs" [value]="state">{{prefab.name}}</mat-option>
+      </mat-select>
     </mat-form-field>
     <button mat-raised-button color="primary">Crear</button>
   </form>
 </main>
+

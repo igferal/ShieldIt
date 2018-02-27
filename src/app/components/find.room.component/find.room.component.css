@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.form h1{
+  align-self: flex-start;
+}
+
 .full-width {
   width: 100%;
 }
