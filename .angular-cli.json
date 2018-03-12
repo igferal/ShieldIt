@@ -16,7 +16,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "serviceWorker": true,
-      "styles": ["styles.css", "../node_modules/angular-notifier/styles.css"],
+      "styles": ["styles.scss", "../node_modules/angular-notifier/styles.css"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

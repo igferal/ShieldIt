@@ -47,6 +47,7 @@ li {
   margin-right: 2px;
   padding: 20px 40px;
   border-radius: 5px;
+  min-width: 120px;
 }
 
 .game:active:focus,
@@ -60,37 +61,44 @@ li {
   top: 2px;
 }
 
+.game:hover,
+.game.active {
+  top: 1px;
+}
+
 .game.btn-kill {
   color: #ffff;
-  box-shadow: 0 0 0 1px #c8102e inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset,
-    0 8px 0 0 #c8102e, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
-  background-color: #c8102e;
+  box-shadow: 0 0 0 1px #F44336 inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset,
+    0 8px 0 0 #F44336, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
+  background-color: #F44336;
 }
 
 .game.btn-shield {
   color: #fff;
-  box-shadow: 0 0 0 1px #004687 inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset,
-    0 8px 0 0 #004687, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
-  background-color: #004687;
+  box-shadow: 0 0 0 1px #2196F3 inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset,
+    0 8px 0 0 #2196F3, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
+  background-color: #2196F3;
 }
 
 .card header {
-  font-size: 1.8em;
-  color: #004687;
+  font-size: 1.6em;
+  color:  #1B5E20;
+  text-align: center;
 }
 
 .card {
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   -webkit-box-shadow: 10px 10px 37px -9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 37px -9px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 37px -9px rgba(0, 0, 0, 0.75);
   border-radius: 20px;
-  min-width: 280px;
-  max-width: 280px;
+  min-width: 300px;
+  max-width: 300px;
   min-height: 300px;
-  height: 300px;
-  max-height: 300px;
+  height: 350px;
+  max-height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -109,27 +117,29 @@ li {
 
 .circle {
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  background: #666;
+  width: 200px;
+  height: 200px;
+  background: #8BC34A; 
   color: #fff;
-  text-align: center;
   font-size: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .circle::before {
+
   content: "";
-  display: inline-block;
-  vertical-align: middle;
-  padding-top: 100%;
+  visibility: hidden;
 }
 
 .killed {
-  background: #c8102e;
+  background: #F44336;
 }
 
 .shielded {
-  background: #004687;
+  background: #2196F3;
 }
 
 .players {
@@ -142,22 +152,25 @@ li {
 
 .player {
   color: white;
-  background: teal;
+  background: #1B5E20;
   padding: 6px 20px;
   margin-right: 10px;
   border-radius: 5px;
   max-height: 2vh;
 }
 
-.clean {
-  color: white;
-  background: red;
-  padding: 10px 20px;
-  margin-right: 10px;
-  border-radius: 5px;
-  max-height: 4vh;
-}
+
 
 .players .player:first-child {
-  background: peru;
+  background: #2196F3;
+}
+
+@media (max-width: 600px) {
+  .card {
+
+    width: 90%;
+    max-width: 90%;
+    height: 70vh;
+    max-height: 70vh;
+  }
 }

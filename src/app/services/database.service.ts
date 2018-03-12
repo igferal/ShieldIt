@@ -52,6 +52,7 @@ export class DatabaseService {
     let room = this.db.doc<Room>(`rooms/${idRoom}`).valueChanges();
     let suscription = room.subscribe(room => {
       if (!room.players.includes(playerName)) {
+        console.log("Usario introducido");
         room.players.push(playerName);
         this.db.doc<Room>(`rooms/${idRoom}`).update(room);
         suscription.unsubscribe();

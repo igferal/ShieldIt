@@ -9,7 +9,7 @@
       <header>
         {{game.name}}
       </header>
-      <div *ngIf="!game.killed && !game.shielded" class="circle">
+      <div  *ngIf="!game.killed && !game.shielded" class="circle animated  lightSpeedIn ">
         {{game.name.substring(0,1)}}
       </div>
       <div *ngIf="game.killed" class="circle killed">
@@ -19,8 +19,8 @@
         {{game.name.substring(0,1)}}
       </div>
       <footer class="cardfooter">
-        <button (click)="killGame(game,room)" class="game btn-kill">Kill</button>
         <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
+        <button (click)="killGame(game,room)" class="game btn-kill">Kill</button>
       </footer>
     </div>
   </div>
@@ -28,8 +28,6 @@
     <span class="player" *ngFor="let player of room?.players">
       {{player}}
     </span>
-    <button class="clean" (click)="cleanRoom()">clean room</button>
-
   </footer>
 </main>
 <notifier-container></notifier-container>

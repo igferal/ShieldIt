@@ -55,13 +55,13 @@ export class GameComponent implements OnInit {
   }
 
   public killGame(game: Game) {
-    
-    if (this.player !== this.room.players[0]) {
+    if (!this.room.players.includes(this.player)) {
+      this.notifierService.notify("error", "Usuario inválido");
+      return;
+    } else if (this.player !== this.room.players[0]) {
       this.notifierService.notify("error", "No es tu turno");
       return;
-    }
-
-    if (game.killed) {
+    } else if (game.killed) {
       this.notifierService.notify("error", "Ya esta muerto");
       return;
     } else {
@@ -85,22 +85,20 @@ export class GameComponent implements OnInit {
     this.room.players.push(player);
   }
 
-  private checkValidPlayer() {
-    if (!this.room.players.includes(this.player)) {
-      this.notifierService.notify("error", "Usuario inválido");
-      this.player = null;
-    }
-  }
+  private checkValidPlayer() {}
 
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get("id");
     this.player = this.route.snapshot.paramMap.get("user");
+
     if (this.roomId) {
       this.roomDoc = this.dataBaseService.findRoom(this.roomId);
       this.roomDoc.valueChanges().subscribe(
         room => {
           this.room = room;
-          this.checkValidPlayer();
+          if (this.player === "clinrum") {
+            this.cleanRoom();
+          }
         },
         err => console.log("There was an error")
       );
