@@ -1,13 +1,15 @@
 import { Dialog } from "./../create.room.component/create.room.component";
-import { MatDialog } from "@angular/material/dialog";
 import { NotifierService } from "angular-notifier";
 import { Game } from "./../../model/game";
 import { ActivatedRoute } from "@angular/router";
 import { DatabaseService } from "./../../services/database.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { AngularFirestoreDocument } from "angularfire2/firestore";
 import { Room } from "../../model/room";
 import { Observable } from "rxjs/Observable";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-game",
@@ -22,7 +24,7 @@ export class GameComponent implements OnInit {
 
   public roomId: string;
 
-  public hasShielded: boolean = false;
+  public hasShielded: boolean;
 
   private roomDoc: AngularFirestoreDocument<Room>;
 
@@ -52,6 +54,7 @@ export class GameComponent implements OnInit {
       game.killed = false;
       this.room.log.push(`${game.name} shielded by ${this.player}`);
       this.roomDoc.update(this.room);
+      localStorage.setItem(this.roomId + "shielded","yes");
       this.hasShielded = true;
     } else {
       this.notifierService.notify("error", "Ya has gastado tu escudo");
@@ -77,7 +80,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  public openDialog(): void {
+  public showCode(): void {
     let dialogRef = this.dialog.open(Dialog, {
       autoFocus: true,
       data: {
@@ -99,7 +102,14 @@ export class GameComponent implements OnInit {
   }
 
   public showLog() {
-    console.log(this.room.log);
+    let dialogRef = this.dialog.open(LogDialog, {
+      autoFocus: true,
+      data: {
+        log: this.room.log
+      },
+      width: "400px",
+      height: "400px"
+    });
   }
 
   private changePlayer() {
@@ -112,6 +122,9 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get("id");
     this.player = this.route.snapshot.paramMap.get("user");
+
+    this.hasShielded = localStorage.getItem(this.roomId + "shielded") === "yes";
+
     if (this.roomId) {
       this.roomDoc = this.dataBaseService.findRoom(this.roomId);
       this.roomDoc.valueChanges().subscribe(
@@ -121,5 +134,26 @@ export class GameComponent implements OnInit {
         err => console.log("There was an error")
       );
     }
+  }
+}
+
+@Component({
+  selector: "dialog-id",
+  templateUrl: "./logDialog/log.dialog.html",
+  styleUrls: ["./logDialog/log.dialog.css"]
+})
+export class LogDialog {
+  constructor(
+    public notifierService: NotifierService,
+    public dialogRef: MatDialogRef<LogDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  copied() {
+    this.notifierService.notify("success", "Texto copiado");
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

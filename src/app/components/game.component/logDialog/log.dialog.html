@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Log de la sala</h1>
+<div class="scroll" mat-dialog-content>
+    <p>
+        <ng-container *ngFor="let log of data.log">
+            {{log}}
+            <br/>
+        </ng-container>
+    </p>
+
+</div>
+<div class="center" mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="" (click)="onNoClick()">Salir</button>
+</div>
+<notifier-container></notifier-container>

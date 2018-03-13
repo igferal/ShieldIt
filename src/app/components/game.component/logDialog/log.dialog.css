@@ -1,0 +1,13 @@
+li {
+  list-style: none;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+p {
+  text-align: justify;
+}

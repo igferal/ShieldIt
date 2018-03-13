@@ -19,7 +19,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ClipboardModule } from "ngx-clipboard";
 import { NotifierModule } from "angular-notifier";
-import { GameComponent } from "./components/game.component/game.component";
+import { GameComponent, LogDialog } from "./components/game.component/game.component";
 import { MatChipsModule } from "@angular/material/chips";
 import { HttpModule } from "@angular/http";
 import { MatSelectModule } from "@angular/material/select";
@@ -30,10 +30,11 @@ import {MatMenuModule} from '@angular/material/menu';
     AppComponent,
     CreateRoomComponent,
     Dialog,
+    LogDialog,
     FindRoomComponent,
     GameComponent
   ],
-  entryComponents: [Dialog],
+  entryComponents: [Dialog,LogDialog],
   imports: [
     BrowserModule,
     FormsModule,
