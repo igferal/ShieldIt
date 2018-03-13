@@ -8,7 +8,7 @@
 <div mat-dialog-actions>
     <div class="inline center">
         <button mat-button [mat-dialog-close]="" (click)="onNoClick()">Salir</button>
-        <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Ir a la sala</button>
+        <button *ngIf="data.goto" mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Ir a la sala</button>
     </div>
 </div>
 <notifier-container></notifier-container>

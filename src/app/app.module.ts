@@ -23,6 +23,7 @@ import { GameComponent } from "./components/game.component/game.component";
 import { MatChipsModule } from "@angular/material/chips";
 import { HttpModule } from "@angular/http";
 import { MatSelectModule } from "@angular/material/select";
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatSelectModule } from "@angular/material/select";
     AngularFireModule.initializeApp(environment.firebase, "shieldit"),
     AngularFirestoreModule,
     BrowserAnimationsModule,
+    MatMenuModule,
     MatToolbarModule,
     MatIconModule,
     AppRoutingModule,

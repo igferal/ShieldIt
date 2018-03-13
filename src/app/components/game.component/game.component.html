@@ -1,28 +1,76 @@
 <main>
-  <header>
-    <p>
-      {{room?.name}} {{roomId}}
-    </p>
+  <header class="gameHeader">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="cleanRoom()" mat-menu-item>
+        <mat-icon>delete_sweep</mat-icon>
+        <span>Limpiar juego</span>
+      </button>
+
+      <button (click)="openDialog()" mat-menu-item>
+        <mat-icon>style</mat-icon>
+        <span>Obtener código</span>
+      </button>
+
+      <button (click)="showLog()" mat-menu-item>
+        <mat-icon>event_note</mat-icon>
+        <span>Ver log de juego</span>
+      </button>
+
+      <button mat-menu-item>
+        <mat-icon>close</mat-icon>
+        <span>Cerrar</span>
+      </button>
+
+    </mat-menu>
+    {{room?.name}}
   </header>
   <div class="gameDiv">
-    <div class="card" *ngFor="let game of room?.game">
-      <header>
-        {{game.name}}
-      </header>
-      <div  *ngIf="!game.killed && !game.shielded" class="circle animated  lightSpeedIn ">
-        {{game.name.substring(0,1)}}
+
+    <ng-container *ngFor="let game of room?.game">
+
+      <div *ngIf="!game.killed && !game.shielded" class="card second">
+        <header>
+          {{game.name}}
+        </header>
+        <div class="circle">
+          {{game.name.substring(0,5)}}
+        </div>
+        <footer class="cardfooter">
+          <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
+          <button (click)="killGame(game,room)" class="game btn-kill">Delete</button>
+        </footer>
       </div>
-      <div *ngIf="game.killed" class="circle killed">
-        {{game.name.substring(0,1)}}
+
+      <div *ngIf="game.killed" class="card third">
+        <header>
+          {{game.name}}
+        </header>
+        <div class="circle killed animated  flash">
+          {{game.name.substring(0,5)}}
+        </div>
+        <footer class="cardfooter">
+          <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
+          <button (click)="killGame(game,room)" class="game btn-kill">Delete</button>
+        </footer>
       </div>
-      <div *ngIf="game.shielded" class="circle shielded">
-        {{game.name.substring(0,1)}}
+
+      <div *ngIf="game.shielded" class="card first">
+        <header>
+          {{game.name}}
+        </header>
+        <div class="circle  shielded animated tada">
+          {{game.name.substring(0,5)}}
+        </div>
+        <footer class="cardfooter">
+          <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
+          <button (click)="killGame(game,room)" class="game btn-kill">Delete</button>
+        </footer>
       </div>
-      <footer class="cardfooter">
-        <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
-        <button (click)="killGame(game,room)" class="game btn-kill">Kill</button>
-      </footer>
-    </div>
+
+    </ng-container>
   </div>
   <footer class="players">
     <span class="player" *ngFor="let player of room?.players">

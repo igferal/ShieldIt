@@ -47,7 +47,9 @@ export class CreateRoomComponent implements OnInit {
   public openDialog(id: string): void {
     let dialogRef = this.dialog.open(Dialog, {
       autoFocus: true,
-      data: { id: id },
+      data: { id: id,
+          goto : true
+      },
       width: "300px"
     });
 
@@ -77,7 +79,7 @@ export class CreateRoomComponent implements OnInit {
     }
 
     this.games = [];
-    prefab.names.forEach(name => {
+    prefab.names.sort().forEach(name => {
       this.games.push(Object.assign({}, new Game(name, false, false)));
     });
   }
@@ -94,9 +96,12 @@ export class CreateRoomComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.databaseService
       .getPrefabs()
-      .subscribe(prefabs => (this.prefabs = prefabs));
+      .subscribe(prefabs => {
+        this.prefabs = prefabs;
+      });
   }
 }
 

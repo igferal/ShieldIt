@@ -1,3 +1,5 @@
+import { Dialog } from "./../create.room.component/create.room.component";
+import { MatDialog } from "@angular/material/dialog";
 import { NotifierService } from "angular-notifier";
 import { Game } from "./../../model/game";
 import { ActivatedRoute } from "@angular/router";
@@ -27,7 +29,8 @@ export class GameComponent implements OnInit {
   constructor(
     public dataBaseService: DatabaseService,
     public route: ActivatedRoute,
-    public notifierService: NotifierService
+    public notifierService: NotifierService,
+    public dialog: MatDialog
   ) {}
 
   public shieldGame(game: Game) {
@@ -47,6 +50,7 @@ export class GameComponent implements OnInit {
     if (!this.hasShielded) {
       game.shielded = true;
       game.killed = false;
+      this.room.log.push(`${game.name} shielded by ${this.player}`);
       this.roomDoc.update(this.room);
       this.hasShielded = true;
     } else {
@@ -67,9 +71,22 @@ export class GameComponent implements OnInit {
     } else {
       game.killed = true;
       game.shielded = false;
+      this.room.log.push(`${game.name} eliminated by ${this.player}`);
       this.changePlayer();
       this.roomDoc.update(this.room);
     }
+  }
+
+  public openDialog(): void {
+    let dialogRef = this.dialog.open(Dialog, {
+      autoFocus: true,
+      data: {
+        id: this.roomId,
+        goto: false
+      },
+      width: "300px",
+      height: "180px"
+    });
   }
 
   public cleanRoom() {
@@ -77,7 +94,12 @@ export class GameComponent implements OnInit {
       game.killed = false;
       game.shielded = false;
     });
+    this.room.log = [];
     this.roomDoc.update(this.room);
+  }
+
+  public showLog() {
+    console.log(this.room.log);
   }
 
   private changePlayer() {
@@ -90,15 +112,11 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get("id");
     this.player = this.route.snapshot.paramMap.get("user");
-
     if (this.roomId) {
       this.roomDoc = this.dataBaseService.findRoom(this.roomId);
       this.roomDoc.valueChanges().subscribe(
         room => {
           this.room = room;
-          if (this.player === "clinrum") {
-            this.cleanRoom();
-          }
         },
         err => console.log("There was an error")
       );
