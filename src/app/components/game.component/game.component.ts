@@ -97,6 +97,7 @@ export class GameComponent implements OnInit {
       game.killed = false;
       game.shielded = false;
     });
+    localStorage.setItem(this.roomId + "shielded","no");
     this.room.log = [];
     this.roomDoc.update(this.room);
   }

@@ -189,3 +189,11 @@ li {
 .third {
   order: 3;
 }
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 40px 20px 0;
+  border-color: transparent #2195f3 transparent transparent;
+}
