@@ -11,6 +11,8 @@ main {
   margin-right: 5%;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.3em;
+  margin-bottom: 10px;
 }
 
 .card header {
@@ -130,6 +132,8 @@ li {
   font-size: .9em;
 }
 
+
+
 .players .player:first-child {
   background: #2196f3;
 }
@@ -146,12 +150,16 @@ li {
 
 .first {
   order: 1;
+  border-left: #0288d1 10px solid;
 }
 
 .second {
   order: 2;
+  border-left: #388e3c 10px solid;
 }
 
 .third {
   order: 3;
+  border-left: #d32f2f 10px solid;
+
 }
