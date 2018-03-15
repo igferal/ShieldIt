@@ -32,11 +32,11 @@
     <ng-container *ngFor="let game of room?.game">
 
       <div *ngIf="!game.killed && !game.shielded" class="card second">
-        <header>
-          {{game.name}}
-        </header>
-        <div class="circle">
-          {{game.name.substring(0,5)}}
+        <div class="card-content">
+          <p>
+            {{game.name}}
+          </p>
+          <i class="material-icons alive">videogame_asset</i>
         </div>
         <footer class="cardfooter">
           <button mat-raised-button color="accent" class="customButton" (click)="shieldGame(game,room)">
@@ -51,11 +51,11 @@
       </div>
 
       <div *ngIf="game.killed" class="card third">
-        <header>
-          {{game.name}}
-        </header>
-        <div class="circle killed animated  flash">
-          {{game.name.substring(0,5)}}
+        <div class="card-content">
+          <p>
+            {{game.name}}
+          </p>
+          <i class="material-icons killed">local_hotel</i>
         </div>
         <footer class="cardfooter">
           <button mat-raised-button color="accent" class="customButton" (click)="shieldGame(game,room)">
@@ -70,11 +70,11 @@
       </div>
 
       <div *ngIf="game.shielded" class="card first">
-        <header>
-          {{game.name}}
-        </header>
-        <div class="circle  shielded animated tada">
-          {{game.name.substring(0,5)}}
+        <div class="card-content">
+          <p>
+            {{game.name}}
+          </p>
+          <i class="material-icons shielded">security</i>
         </div>
         <footer class="cardfooter">
           <button mat-raised-button color="accent" class="customButton" (click)="shieldGame(game,room)">
