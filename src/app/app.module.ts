@@ -24,6 +24,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { HttpModule } from "@angular/http";
 import { MatSelectModule } from "@angular/material/select";
 import {MatMenuModule} from '@angular/material/menu';
+import { LandingComponent } from './components/landing.component/landing.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +33,13 @@ import {MatMenuModule} from '@angular/material/menu';
     Dialog,
     LogDialog,
     FindRoomComponent,
-    GameComponent
+    GameComponent,
+    LandingComponent
   ],
   entryComponents: [Dialog,LogDialog],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     AngularFireModule.initializeApp(environment.firebase, "shieldit"),
     AngularFirestoreModule,
     BrowserAnimationsModule,

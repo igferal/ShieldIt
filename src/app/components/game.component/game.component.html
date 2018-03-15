@@ -39,8 +39,14 @@
           {{game.name.substring(0,5)}}
         </div>
         <footer class="cardfooter">
-          <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
-          <button (click)="killGame(game,room)" class="game btn-kill">Delete</button>
+          <button mat-raised-button color="accent" class="customButton" (click)="shieldGame(game,room)">
+            <mat-icon>security</mat-icon>
+            Shield
+          </button>
+          <button mat-raised-button color="warn" class="customButton" (click)="killGame(game,room)">
+            <mat-icon>gavel</mat-icon>
+            Eliminate
+          </button>
         </footer>
       </div>
 
@@ -52,8 +58,14 @@
           {{game.name.substring(0,5)}}
         </div>
         <footer class="cardfooter">
-          <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
-          <button (click)="killGame(game,room)" class="game btn-kill">Delete</button>
+          <button mat-raised-button color="accent" class="customButton" (click)="shieldGame(game,room)">
+            <mat-icon>security</mat-icon>
+            Shield
+          </button>
+          <button mat-raised-button color="warn" class="customButton" (click)="killGame(game,room)">
+            <mat-icon>gavel</mat-icon>
+            Eliminate
+          </button>
         </footer>
       </div>
 
@@ -65,8 +77,14 @@
           {{game.name.substring(0,5)}}
         </div>
         <footer class="cardfooter">
-          <button (click)="shieldGame(game,room)" class="game btn-shield">Shield</button>
-          <button (click)="killGame(game,room)" class="game btn-kill">Delete</button>
+          <button mat-raised-button color="accent" class="customButton" (click)="shieldGame(game,room)">
+            <mat-icon>security</mat-icon>
+            Shield
+          </button>
+          <button mat-raised-button color="warn" class="customButton" (click)="killGame(game,room)">
+            <mat-icon>gavel</mat-icon>
+            Eliminate
+          </button>
         </footer>
       </div>
 
@@ -75,7 +93,7 @@
   <footer class="players">
     <span class="player" *ngFor="let player of room?.players">
       {{player}}
-     
+
     </span>
   </footer>
 </main>

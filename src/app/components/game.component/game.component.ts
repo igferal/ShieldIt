@@ -54,7 +54,7 @@ export class GameComponent implements OnInit {
       game.killed = false;
       this.room.log.push(`${game.name} shielded by ${this.player}`);
       this.roomDoc.update(this.room);
-      localStorage.setItem(this.roomId + "shielded","yes");
+      localStorage.setItem(this.roomId + "shielded", "yes");
       this.hasShielded = true;
     } else {
       this.notifierService.notify("error", "Ya has gastado tu escudo");
@@ -97,7 +97,7 @@ export class GameComponent implements OnInit {
       game.killed = false;
       game.shielded = false;
     });
-    localStorage.setItem(this.roomId + "shielded","no");
+    localStorage.setItem(this.roomId + "shielded", "no");
     this.room.log = [];
     this.roomDoc.update(this.room);
   }
@@ -125,6 +125,7 @@ export class GameComponent implements OnInit {
     this.player = this.route.snapshot.paramMap.get("user");
 
     this.hasShielded = localStorage.getItem(this.roomId + "shielded") === "yes";
+    localStorage.setItem("lastroom", `${this.roomId}/${this.player}`);
 
     if (this.roomId) {
       this.roomDoc = this.dataBaseService.findRoom(this.roomId);

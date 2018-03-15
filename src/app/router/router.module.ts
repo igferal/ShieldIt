@@ -1,3 +1,4 @@
+import { LandingComponent } from './../components/landing.component/landing.component';
 import { GameComponent } from './../components/game.component/game.component';
 import { FindRoomComponent } from "./../components/find.room.component/find.room.component";
 import { AppComponent } from "./../components/app.component/app.component";
@@ -7,11 +8,11 @@ import { CreateRoomComponent } from "../components/create.room.component/create.
 import { MatFormFieldModule } from "@angular/material/form-field";
 
 const routes: Routes = [
-  { path: "", redirectTo: "findRoom", pathMatch: "full" },
+  { path: "", redirectTo: "landing", pathMatch: "full" },
   { path: "findRoom/:id", component: FindRoomComponent },
-  { path: "findRoom", component: FindRoomComponent },
-  { path: "app", component: AppComponent },
-  { path: "createRoom", component: CreateRoomComponent },
+  { path: "findRoom", component: FindRoomComponent ,data: { state: 'find'}},
+  { path: "landing", component: LandingComponent},
+  { path: "createRoom", component: CreateRoomComponent ,data: { state: 'create'}},
   { path: "game/:id/:user", component: GameComponent},
 
 ];

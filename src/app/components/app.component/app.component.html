@@ -1,12 +1,10 @@
 <mat-toolbar class="header" role="header" color="primary">
     <mat-toolbar-row>
-        <span>ShieldIt</span>
+        <span routerLinkActive="active" routerLink="landing">ShieldIt</span>
         <span class="example-spacer"></span>
-        <a routerLink="createRoom">Crear Sala</a>
-        <a routerLink="findRoom">Buscar Sala</a>
+        <a *ngIf="isALastGameAvailable()" (click)="loadLastGame()">Jugar</a>
+        <a routerLinkActive="active" routerLink="createRoom">Crear Sala</a>
+        <a routerLinkActive="active" routerLink="findRoom">Buscar Sala</a>
     </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet>
-
-    
-</router-outlet>
+<router-outlet></router-outlet>

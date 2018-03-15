@@ -39,48 +39,8 @@ li {
   list-style: none;
 }
 
-.game {
-  position: relative;
-  top: -6px;
-  border: 0;
-  transition: all 40ms linear;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding: 20px 40px;
-  border-radius: 5px;
+.customButton {
   min-width: 120px;
-}
-
-.game:active:focus,
-.game:focus:hover,
-.game:focus {
-  outline: medium none;
-}
-
-.game:active,
-.game.active {
-  top: 2px;
-}
-
-.game:hover,
-.game.active {
-  top: 1px;
-}
-
-.game.btn-kill {
-  color: #ffff;
-  box-shadow: 0 0 0 1px #f44336 inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset,
-    0 8px 0 0 #f44336, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
-  background-color: #f44336;
-}
-
-.game.btn-shield {
-  color: #fff;
-  box-shadow: 0 0 0 1px #2196f3 inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset,
-    0 8px 0 0 #2196f3, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
-  background-color: #2196f3;
 }
 
 .card header {
@@ -120,15 +80,19 @@ li {
 
 .circle {
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  background: #8bc34a;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(at center, #4caf50, #388e3c, #1b5e20);
   color: #fff;
   font-size: 3em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.circle:hover{
+  background: linear-gradient(to right, #4caf50, #388e3c, #1b5e20);
 }
 
 .end {
@@ -141,11 +105,19 @@ li {
 }
 
 .killed {
-  background: #f44336;
+  background: radial-gradient(at center, #f44336, #d32f2f, #b71c1c);
+}
+
+.killed:hover {
+  background: linear-gradient(to right, #f44336, #d32f2f, #b71c1c);
 }
 
 .shielded {
-  background: #2196f3;
+  background: radial-gradient(at center, #03a9f4, #0288d1, #01579b);
+}
+
+.shielded:hover {
+  background: linear-gradient(to right, #03a9f4, #0288d1, #01579b);
 }
 
 .players {
