@@ -108,7 +108,7 @@ li {
 }
 
 .shielded {
-  color: #0288d1;
+  color: #01579b;
 }
 
 .shielded:hover {
@@ -143,14 +143,14 @@ li {
     width: 90%;
     max-width: 90%;
     min-width: 90%;
-    height: 23vh;
-    max-height: 23vh;
+    height: 24vh;
+    max-height: 24vh;
   }
 }
 
 .first {
   order: 1;
-  border-left: #0288d1 10px solid;
+  border-left: #01579b 10px solid;
 }
 
 .second {

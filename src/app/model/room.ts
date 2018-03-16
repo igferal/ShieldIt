@@ -4,6 +4,7 @@ export class Room {
     public name: string,
     public players: string[],
     public game: Game[],
-    public log = []
+    public log = [],
+    public killCount = 0
   ) {}
 }

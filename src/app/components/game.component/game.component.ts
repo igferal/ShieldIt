@@ -56,6 +56,7 @@ export class GameComponent implements OnInit {
       this.roomDoc.update(this.room);
       localStorage.setItem(this.roomId + "shielded", "yes");
       this.hasShielded = true;
+      this.room.killCount--;
     } else {
       this.notifierService.notify("error", "Ya has gastado tu escudo");
     }
@@ -73,8 +74,13 @@ export class GameComponent implements OnInit {
       return;
     } else {
       game.killed = true;
+      this.room.killCount++;
       game.shielded = false;
-      this.room.log.push(`${game.name} eliminated by ${this.player}`);
+      this.room.log.push(
+        `${this.room.game.length - this.room.killCount}-${
+          game.name
+        } eliminated by ${this.player}`
+      );
       this.changePlayer();
       this.roomDoc.update(this.room);
     }
