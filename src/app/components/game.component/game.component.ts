@@ -52,9 +52,9 @@ export class GameComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  public startAnimation(state) {
+  public startAnimation(state: string, game: Game) {
     if (!this.animationState) {
-      this.animationState = state;
+      game.animation = state;
     }
   }
 
@@ -77,10 +77,11 @@ export class GameComponent implements OnInit {
     }
 
     if (!this.hasShielded) {
-      this.startAnimation("swipeLeft");
+      this.startAnimation("swipeLeft", game);
       setTimeout(() => {
         game.shielded = true;
         game.killed = false;
+        game.animation = 'inative';
         this.room.log.push(`${game.name} shielded by ${this.player}`);
         localStorage.setItem(this.roomId + "shielded", "yes");
         this.hasShielded = true;
@@ -93,7 +94,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  public killGame(game: Game) {
+  public killGame(game: Game, event: Event) {
     if (!this.room.players.includes(this.player)) {
       this.notifierService.notify("error", "Usuario inválido");
       return;
@@ -104,8 +105,9 @@ export class GameComponent implements OnInit {
       this.notifierService.notify("error", "Ya esta muerto");
       return;
     } else {
-      this.startAnimation("swipeRight");
+      this.startAnimation("swipeRight", game);
       setTimeout(() => {
+        game.animation = 'inative';
         this.room.killCount++;
         game.shielded = false;
         this.room.log.push(
@@ -138,6 +140,7 @@ export class GameComponent implements OnInit {
       game.killed = false;
       game.shielded = false;
     });
+    this.room.killCount = 0;
     localStorage.removeItem(this.roomId + "shielded");
     this.room.log = [];
     this.roomDoc.update(this.room);
