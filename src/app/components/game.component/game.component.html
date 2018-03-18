@@ -31,7 +31,8 @@
 
     <ng-container *ngFor="let game of room?.game">
 
-      <div *ngIf="!game.killed && !game.shielded" class="card second">
+      <div *ngIf="!game.killed && !game.shielded" class="card second" [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()"
+        (swipeleft)="shieldGame(game,room)" (swiperight)="killGame(game,room)">
         <div class="card-content">
           <p>
             {{game.name}}
@@ -50,7 +51,8 @@
         </footer>
       </div>
 
-      <div *ngIf="game.killed" class="card third">
+      <div *ngIf="game.killed" class="card third" [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()"
+        (swipeleft)="shieldGame(game,room)" (swiperight)="killGame(game,room)">
         <div class="card-content">
           <p>
             {{game.name}}
@@ -69,7 +71,8 @@
         </footer>
       </div>
 
-      <div *ngIf="game.shielded" class="card first">
+      <div *ngIf="game.shielded" class="card first" [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()"
+        (swipeleft)="shieldGame(game,room)" (swiperight)="killGame(game,room)">
         <div class="card-content">
           <p>
             {{game.name}}

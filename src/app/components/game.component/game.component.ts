@@ -1,3 +1,4 @@
+import { slideLeft, slideRight } from "./../../animations/card.swipe";
 import { Dialog } from "./../create.room.component/create.room.component";
 import { NotifierService } from "angular-notifier";
 import { Game } from "./../../model/game";
@@ -10,12 +11,26 @@ import { Observable } from "rxjs/Observable";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatDialog } from "@angular/material/dialog";
 import { MatDialogRef } from "@angular/material/dialog";
+import { trigger, keyframes, animate, transition } from "@angular/animations";
+import * as cardSwipe from "../../animations/card.swipe";
 
 @Component({
   selector: "app-game",
   templateUrl: "./game.component.html",
   styleUrls: ["./game.component.css"],
-  providers: [DatabaseService]
+  providers: [DatabaseService],
+  animations: [
+    trigger("cardAnimator", [
+      transition(
+        "* => swipeLeft",
+        animate(500, keyframes(cardSwipe.slideLeft))
+      ),
+      transition(
+        "* => swipeRight",
+        animate(500, keyframes(cardSwipe.slideRight))
+      )
+    ])
+  ]
 })
 export class GameComponent implements OnInit {
   public room: Room;
@@ -28,12 +43,24 @@ export class GameComponent implements OnInit {
 
   private roomDoc: AngularFirestoreDocument<Room>;
 
+  public animationState: string;
+
   constructor(
     public dataBaseService: DatabaseService,
     public route: ActivatedRoute,
     public notifierService: NotifierService,
     public dialog: MatDialog
   ) {}
+
+  public startAnimation(state) {
+    if (!this.animationState) {
+      this.animationState = state;
+    }
+  }
+
+  public resetAnimationState() {
+    this.animationState = "";
+  }
 
   public shieldGame(game: Game) {
     if (game.shielded) {
@@ -50,13 +77,17 @@ export class GameComponent implements OnInit {
     }
 
     if (!this.hasShielded) {
-      game.shielded = true;
-      game.killed = false;
-      this.room.log.push(`${game.name} shielded by ${this.player}`);
-      this.roomDoc.update(this.room);
-      localStorage.setItem(this.roomId + "shielded", "yes");
-      this.hasShielded = true;
-      this.room.killCount--;
+      this.startAnimation("swipeLeft");
+      setTimeout(() => {
+        game.shielded = true;
+        game.killed = false;
+        this.room.log.push(`${game.name} shielded by ${this.player}`);
+        localStorage.setItem(this.roomId + "shielded", "yes");
+        this.hasShielded = true;
+        this.room.killCount--;
+        this.resetAnimationState();
+        this.roomDoc.update(this.room);
+      }, 500);
     } else {
       this.notifierService.notify("error", "Ya has gastado tu escudo");
     }
@@ -73,16 +104,20 @@ export class GameComponent implements OnInit {
       this.notifierService.notify("error", "Ya esta muerto");
       return;
     } else {
-      game.killed = true;
-      this.room.killCount++;
-      game.shielded = false;
-      this.room.log.push(
-        `${this.room.game.length - this.room.killCount}-${
-          game.name
-        } eliminated by ${this.player}`
-      );
-      this.changePlayer();
-      this.roomDoc.update(this.room);
+      this.startAnimation("swipeRight");
+      setTimeout(() => {
+        this.room.killCount++;
+        game.shielded = false;
+        this.room.log.push(
+          `${this.room.game.length - this.room.killCount}-${
+            game.name
+          } eliminated by ${this.player}`
+        );
+        game.killed = true;
+        this.changePlayer();
+        this.resetAnimationState();
+        this.roomDoc.update(this.room);
+      }, 500);
     }
   }
 
@@ -103,7 +138,7 @@ export class GameComponent implements OnInit {
       game.killed = false;
       game.shielded = false;
     });
-    localStorage.setItem(this.roomId + "shielded", "no");
+    localStorage.removeItem(this.roomId + "shielded");
     this.room.log = [];
     this.roomDoc.update(this.room);
   }
