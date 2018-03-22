@@ -5,14 +5,14 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { NotifierService } from "angular-notifier";
 
 @Component({
-  selector: "dialog-id",
-  templateUrl: "./log.dialog.html",
-  styleUrls: ["./log.dialog.css"]
+  selector: "dialog-winner",
+  templateUrl: "./winner.dialog.html",
+  styleUrls: ["./winner.dialog.css"]
 })
-export class LogDialog {
+export class WinnerDialog {
   constructor(
     public notifierService: NotifierService,
-    public dialogRef: MatDialogRef<LogDialog>,
+    public dialogRef: MatDialogRef<WinnerDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

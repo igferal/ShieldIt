@@ -3,6 +3,7 @@ export class Game {
     public name: string,
     public killed: boolean,
     public shielded: boolean,
-    public animation = 'inactive'
+    public animation = "inactive",
+    public position: number = 0
   ) {}
 }

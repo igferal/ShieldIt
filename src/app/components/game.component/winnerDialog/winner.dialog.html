@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Ganador</h1>
+<div class="winner" mat-dialog-content>
+
+    <i class="material-icons alive">cake</i>
+    <h1>
+        {{data.winner}}
+    </h1>
+    <button mat-button [mat-dialog-close]="" (click)="onNoClick()">Salir</button>
+
+</div>
+
+<notifier-container></notifier-container>

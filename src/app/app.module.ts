@@ -30,6 +30,7 @@ import {
 } from "@angular/platform-browser";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { LogDialog } from "./components/game.component/logDialog/log.dialog";
+import { WinnerDialog } from "./components/game.component/winnerDialog/winner.dialog";
 
 @NgModule({
   declarations: [
@@ -37,11 +38,12 @@ import { LogDialog } from "./components/game.component/logDialog/log.dialog";
     CreateRoomComponent,
     CopyDialog,
     LogDialog,
+    WinnerDialog,
     FindRoomComponent,
     GameComponent,
     LandingComponent
   ],
-  entryComponents: [CopyDialog, LogDialog],
+  entryComponents: [CopyDialog, LogDialog,WinnerDialog],
   imports: [
     BrowserModule,
     FormsModule,

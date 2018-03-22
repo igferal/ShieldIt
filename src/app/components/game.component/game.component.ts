@@ -1,4 +1,5 @@
-import { CopyDialog } from './../create.room.component/dialog/copy.dialog';
+import { WinnerDialog } from './winnerDialog/winner.dialog';
+import { CopyDialog } from "./../create.room.component/dialog/copy.dialog";
 import { slideLeft, slideRight } from "./../../animations/card.swipe";
 import { NotifierService } from "angular-notifier";
 import { Game } from "./../../model/game";
@@ -13,7 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatDialogRef } from "@angular/material/dialog";
 import { trigger, keyframes, animate, transition } from "@angular/animations";
 import * as cardSwipe from "../../animations/card.swipe";
-import { LogDialog } from './logDialog/log.dialog';
+import { LogDialog } from "./logDialog/log.dialog";
 
 @Component({
   selector: "app-game",
@@ -82,7 +83,7 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         game.shielded = true;
         game.killed = false;
-        game.animation = 'inative';
+        game.animation = "inative";
         this.room.log.push(`${game.name} shielded by ${this.player}`);
         localStorage.setItem(this.roomId + "shielded", "yes");
         this.hasShielded = true;
@@ -108,11 +109,12 @@ export class GameComponent implements OnInit {
     } else {
       this.startAnimation("swipeRight", game);
       setTimeout(() => {
-        game.animation = 'inative';
+        game.animation = "inative";
         this.room.killCount++;
         game.shielded = false;
+        game.position=this.room.game.length - this.room.killCount;
         this.room.log.push(
-          `${this.room.game.length - this.room.killCount}-${
+          `${game.position}-${
             game.name
           } eliminated by ${this.player}`
         );
@@ -163,6 +165,19 @@ export class GameComponent implements OnInit {
     this.room.players.push(player);
   }
 
+  private showWinner() {
+    this.room.game.filter(game => !game.killed).forEach(game => {
+      let dialogRef = this.dialog.open(WinnerDialog, {
+        autoFocus: true,
+        data: {
+          winner: game.name
+        },
+        width: "400px",
+        height: "300px"
+      });
+    });
+  }
+
   private checkValidPlayer() {}
 
   ngOnInit() {
@@ -177,10 +192,12 @@ export class GameComponent implements OnInit {
       this.roomDoc.valueChanges().subscribe(
         room => {
           this.room = room;
+          if (this.room.killCount === this.room.game.length - 1) {
+            this.showWinner();
+          }
         },
         err => console.log("There was an error")
       );
     }
   }
 }
-

@@ -67,6 +67,11 @@ li {
   width: 100%;
 }
 
+.cardfooter p{
+  margin: 5%;
+  font-size: 1.3em;
+}
+
 .cardfooter button {
   margin: 5%;
 }
