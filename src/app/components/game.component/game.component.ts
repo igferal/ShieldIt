@@ -1,5 +1,5 @@
+import { CopyDialog } from './../create.room.component/dialog/copy.dialog';
 import { slideLeft, slideRight } from "./../../animations/card.swipe";
-import { Dialog } from "./../create.room.component/create.room.component";
 import { NotifierService } from "angular-notifier";
 import { Game } from "./../../model/game";
 import { ActivatedRoute } from "@angular/router";
@@ -13,6 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatDialogRef } from "@angular/material/dialog";
 import { trigger, keyframes, animate, transition } from "@angular/animations";
 import * as cardSwipe from "../../animations/card.swipe";
+import { LogDialog } from './logDialog/log.dialog';
 
 @Component({
   selector: "app-game",
@@ -124,7 +125,7 @@ export class GameComponent implements OnInit {
   }
 
   public showCode(): void {
-    let dialogRef = this.dialog.open(Dialog, {
+    let dialogRef = this.dialog.open(CopyDialog, {
       autoFocus: true,
       data: {
         id: this.roomId,
@@ -183,23 +184,3 @@ export class GameComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: "dialog-id",
-  templateUrl: "./logDialog/log.dialog.html",
-  styleUrls: ["./logDialog/log.dialog.css"]
-})
-export class LogDialog {
-  constructor(
-    public notifierService: NotifierService,
-    public dialogRef: MatDialogRef<LogDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  copied() {
-    this.notifierService.notify("success", "Texto copiado");
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}

@@ -1,19 +1,19 @@
 {
-  "dynamic": {
-    "group": [
-      {
-        "name": "shieldit",
-        "urls": {},
-        "cache": {
-          "optimizeFor": "performance",
-          "maxAgeMs": 3600000,
-          "maxEntries": 20,
-          "strategy": "lru"
-        }
-      }
-    ]
-  },
-  "external": {
-    "urls": [{}]
-  }
+  "short_name": "S!",
+  "name": "ShieldIt!",
+  "start_url": "/",
+
+  "theme_color": "#1b5e20",
+  "background_color": "#ffffff",
+
+  "display": "standalone",
+  "orientation": "portrait",
+
+  "icons": [
+    {
+      "src": "assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

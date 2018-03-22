@@ -1,3 +1,4 @@
+import { CopyDialog } from './dialog/copy.dialog';
 import { Prefab } from "./../../model/prefab";
 import { Router } from "@angular/router";
 import { Game } from "./../../model/game";
@@ -45,7 +46,7 @@ export class CreateRoomComponent implements OnInit {
   }
 
   public openDialog(id: string): void {
-    let dialogRef = this.dialog.open(Dialog, {
+    let dialogRef = this.dialog.open(CopyDialog, {
       autoFocus: true,
       data: { id: id,
           goto : true
@@ -97,6 +98,7 @@ export class CreateRoomComponent implements OnInit {
 
   ngOnInit() {
 
+
     this.databaseService
       .getPrefabs()
       .subscribe(prefabs => {
@@ -105,23 +107,3 @@ export class CreateRoomComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: "dialog-id",
-  templateUrl: "./dialog/dialog.html",
-  styleUrls: ["./dialog/dialog.css"]
-})
-export class Dialog {
-  constructor(
-    public notifierService: NotifierService,
-    public dialogRef: MatDialogRef<Dialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  copied() {
-    this.notifierService.notify("success", "Texto copiado");
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}

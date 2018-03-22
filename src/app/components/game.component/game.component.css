@@ -118,7 +118,7 @@ li {
 .players {
   flex-wrap: wrap;
   justify-content: center;
-  height: 8vh;
+  height: 4vh;
   display: inline-flex;
   align-items: center;
 }
@@ -132,6 +132,10 @@ li {
   font-size: .9em;
 }
 
+.oneitem{
+  align-items: center;
+  justify-content: center;
+}
 
 
 .players .player:first-child {
