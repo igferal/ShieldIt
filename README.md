@@ -1,5 +1,5 @@
 # ShieldIT
 
-Currently in developing.
+Currently in development.
 
 Url : https://shielditgame.firebaseapp.com/createRoom
